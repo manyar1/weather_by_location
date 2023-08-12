@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather_by_location/common/colors/app_colors.dart';
 
 class CustomAlert {
   void showMessage(
@@ -34,7 +33,7 @@ class CustomAlert {
             padding: EdgeInsets.all(10.h),
             child: Text(
               text,
-              style: GoogleFonts.roboto(fontSize: 17.sp, fontWeight: FontWeight.w400, color: AppColors.greyText),
+              style: GoogleFonts.roboto(fontSize: 17.sp, fontWeight: FontWeight.w400, color: Colors.white),
             ),
           ),
         ),
