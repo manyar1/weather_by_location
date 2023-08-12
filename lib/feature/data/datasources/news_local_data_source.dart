@@ -16,7 +16,7 @@ class WeatherLocalDataSourceImpl implements WeatherLocalDataSource {
   WeatherLocalDataSourceImpl({required this.sharedPreferences});
   @override
   Future<AllWeatherModels> getCachedWeather() async {
-    final jsonWeather = sharedPreferences.getString('CACHED_NEWS_LIST');
+    final jsonWeather = sharedPreferences.getString('CACHED_WEATHER_LIST');
     if (jsonWeather == null || jsonWeather.isEmpty) return Future.value(json.decode(''));
 
     return Future.value(json.decode(jsonWeather));
@@ -24,7 +24,7 @@ class WeatherLocalDataSourceImpl implements WeatherLocalDataSource {
 
   @override
   Future<void> setWeatherToCache(AllWeatherModels weather) async {
-    await sharedPreferences.setString('CACHED_NEWS_LIST', weather.toString());
-    log('News to write Cache: $weather');
+    await sharedPreferences.setString('CACHED_WEATHER_LIST', weather.toString());
+    log('Weather to write Cache: $weather');
   }
 }

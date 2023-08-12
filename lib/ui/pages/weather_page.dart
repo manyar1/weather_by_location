@@ -37,7 +37,6 @@ class _WeatherPageState extends State<WeatherPage> {
     position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
     log(position!.latitude.toString());
     if (position != null) {
-      log('in there');
       getWeather();
     }
   }
@@ -92,7 +91,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                     width: 8.w,
                                   ),
                                   Text(
-                                    '${weather.name}, ${weather.sys!.country}',
+                                    '${weather.name}, ${_countryCode(weather)}',
                                     style: GoogleFonts.roboto(
                                         fontSize: 17.sp, fontWeight: FontWeight.w500, color: Colors.white),
                                   )
@@ -160,8 +159,19 @@ class _WeatherPageState extends State<WeatherPage> {
     );
   }
 
+  String _countryCode(AllWeatherEntity weather) {
+    switch (weather.sys!.country) {
+      case 'RU':
+        return 'Россия';
+      case 'US':
+        return 'США';
+
+      default:
+        return weather.sys!.country!;
+    }
+  }
+
   String _weatherImage(AllWeatherEntity weather) {
-    log(weather.weather!.first.main.toString());
     switch (weather.weather!.first.main) {
       case WeatherEnum.rain:
         return Images.bigRain;
@@ -177,7 +187,6 @@ class _WeatherPageState extends State<WeatherPage> {
   }
 
   String _weatherText(AllWeatherEntity weather) {
-    log(weather.weather!.first.main.toString());
     switch (weather.weather!.first.main) {
       case WeatherEnum.rain:
         return 'Дождь';

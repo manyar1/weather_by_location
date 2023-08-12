@@ -7,6 +7,7 @@ import 'package:weather_by_location/feature/presentation/bloc/weather_bloc/weath
 import 'package:weather_by_location/locator_service.dart';
 import 'package:weather_by_location/ui/pages/login_page.dart';
 import 'package:weather_by_location/ui/pages/weather_page.dart';
+import 'package:weather_by_location/ui/screen/splash_screen.dart';
 import 'package:weather_by_location/ui/services/firebase_stream.dart';
 
 Future<void> main() async {
@@ -32,14 +33,15 @@ class WeatherByLocation extends StatelessWidget {
         builder: (BuildContext context, Widget? child) {
           return MaterialApp(
             builder: FlutterSmartDialog.init(),
-             navigatorObservers: [FlutterSmartDialog.observer],
+            navigatorObservers: [FlutterSmartDialog.observer],
             debugShowCheckedModeBanner: false,
             routes: {
+              '/splash': (context) => const SplashScreen(),
               '/': (context) => const FirebaseStream(),
               '/login': (context) => const LoginPage(),
               '/weather': (context) => const WeatherPage(),
             },
-            initialRoute: '/',
+            initialRoute: '/splash',
           );
         },
       ),

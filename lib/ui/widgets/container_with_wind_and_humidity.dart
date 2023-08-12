@@ -42,7 +42,7 @@ class ContainerWithWindAndHumidity extends StatelessWidget {
                 width: 24.w,
               ),
               Text(
-                directionOfTheWind(),
+                _directionOfTheWind(),
                 style: GoogleFonts.roboto(fontSize: 15.sp, fontWeight: FontWeight.w400, color: Colors.white),
               ),
             ],
@@ -70,7 +70,7 @@ class ContainerWithWindAndHumidity extends StatelessWidget {
                 width: 24.w,
               ),
               Text(
-                airWithRelativeHumidity(),
+                _airWithRelativeHumidity(),
                 style: GoogleFonts.roboto(fontSize: 15.sp, fontWeight: FontWeight.w400, color: Colors.white),
               ),
             ],
@@ -80,7 +80,7 @@ class ContainerWithWindAndHumidity extends StatelessWidget {
     );
   }
 
-  String airWithRelativeHumidity() {
+  String _airWithRelativeHumidity() {
     if (weather.main!.humidity! <= 55) {
       return 'Низкая влажность';
     }
@@ -96,7 +96,7 @@ class ContainerWithWindAndHumidity extends StatelessWidget {
     return '';
   }
 
-  String directionOfTheWind() {
+  String _directionOfTheWind() {
     if ((weather.wind!.deg! >= 350 && weather.wind!.deg! <= 360) ||
         (weather.wind!.deg! >= 0 && weather.wind!.deg! <= 10)) {
       return 'Ветер северный';
