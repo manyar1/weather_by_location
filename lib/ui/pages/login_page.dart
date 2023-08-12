@@ -66,96 +66,98 @@ class _LoginPageState extends State<LoginPage> {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 76.h),
-                child: Text(
-                  'Вход',
-                  style: GoogleFonts.ubuntu(fontSize: 28.sp, fontWeight: FontWeight.w500),
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 48.h),
+                  child: Text(
+                    'Вход',
+                    style: GoogleFonts.ubuntu(fontSize: 28.sp, fontWeight: FontWeight.w500),
+                  ),
                 ),
-              ),
-              SizedBox(height: 10.h),
-              Text(
-                'Введите данные для входа',
-                style: GoogleFonts.roboto(fontSize: 15.sp, fontWeight: FontWeight.w400, color: AppColors.greyText),
-              ),
-              SizedBox(height: 40.h),
-              TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                autocorrect: false,
-                controller: emailTextInputController,
-                validator: (email) {
-                  log(email.toString());
-                  return email != null && !EmailValidator.validate(email) ? 'Введите правильный Email' : null;
-                },
-                decoration: InputDecoration(
+                SizedBox(height: 12.h),
+                Text(
+                  'Введите данные для входа',
+                  style: GoogleFonts.roboto(fontSize: 15.sp, fontWeight: FontWeight.w400, color: AppColors.greyText),
+                ),
+                SizedBox(height: 40.h),
+                TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  autocorrect: false,
+                  controller: emailTextInputController,
+                  validator: (email) {
+                    log(email.toString());
+                    return email != null && !EmailValidator.validate(email) ? 'Введите правильный Email' : null;
+                  },
+                  decoration: InputDecoration(
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.animate),
+                      ),
+                      labelText: "Email",
+                      labelStyle:
+                          GoogleFonts.roboto(fontSize: 17.sp, fontWeight: FontWeight.w400, color: AppColors.greyText)),
+                ),
+                SizedBox(height: 30.h),
+                TextFormField(
+                  autocorrect: false,
+                  controller: passwordTextInputController,
+                  obscureText: isHiddenPassword,
+                  validator: (value) => value != null && value.length < 6 ? 'Минимум 6 символов' : null,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: InputDecoration(
                     focusedBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: AppColors.animate),
                     ),
-                    labelText: "Email",
                     labelStyle:
-                        GoogleFonts.roboto(fontSize: 17.sp, fontWeight: FontWeight.w400, color: AppColors.greyText)),
-              ),
-              SizedBox(height: 30.h),
-              TextFormField(
-                autocorrect: false,
-                controller: passwordTextInputController,
-                obscureText: isHiddenPassword,
-                validator: (value) => value != null && value.length < 6 ? 'Минимум 6 символов' : null,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  focusedBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.animate),
-                  ),
-                  labelStyle:
-                      GoogleFonts.roboto(fontSize: 17.sp, fontWeight: FontWeight.w400, color: AppColors.greyText),
-                  labelText: 'Пароль',
-                  suffix: InkWell(
-                    onTap: togglePasswordView,
-                    child: !isHiddenPassword
-                        ? SvgPicture.asset(
-                            Images.openEye,
-                          )
-                        : SvgPicture.asset(
-                            Images.closeEye,
-                          ),
+                        GoogleFonts.roboto(fontSize: 17.sp, fontWeight: FontWeight.w400, color: AppColors.greyText),
+                    labelText: 'Пароль',
+                    suffix: InkWell(
+                      onTap: togglePasswordView,
+                      child: !isHiddenPassword
+                          ? SvgPicture.asset(
+                              Images.openEye,
+                            )
+                          : SvgPicture.asset(
+                              Images.closeEye,
+                            ),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 32.h),
-              SizedBox(
-                height: 48.h,
-                child: CustomButton(
-                  onTap: () {
-                    String error = 'Укажите';
-                    bool errorsFlag = false;
-                    String email = emailTextInputController.text;
-                    bool emailValid =
-                        RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
-
-                    if (!emailValid && emailTextInputController.text.isNotEmpty) {
-                      error += '\n- ${'Правильный email'}';
-                      errorsFlag = true;
-                    }
-                    if (errorsFlag) {
-                      log('1');
-                      CustomAlert().showMessage(error, context);
-                    } else {
-                      login(context);
-                    }
-                  },
-                  btnColor: AppColors.buttomColor,
-                  label: Text(
-                    'Войти',
-                    style: GoogleFonts.roboto(fontSize: 17.sp, fontWeight: FontWeight.w500, color: Colors.white),
+                SizedBox(height: 32.h),
+                SizedBox(
+                  height: 48.h,
+                  child: CustomButton(
+                    onTap: () {
+                      String error = 'Укажите';
+                      bool errorsFlag = false;
+                      String email = emailTextInputController.text;
+                      bool emailValid =
+                          RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
+        
+                      if (!emailValid && emailTextInputController.text.isNotEmpty) {
+                        error += '\n- ${'Правильный email'}';
+                        errorsFlag = true;
+                      }
+                      if (errorsFlag) {
+                        log('1');
+                        CustomAlert().showMessage(error, context);
+                      } else {
+                        login(context);
+                      }
+                    },
+                    btnColor: AppColors.buttomColor,
+                    label: Text(
+                      'Войти',
+                      style: GoogleFonts.roboto(fontSize: 17.sp, fontWeight: FontWeight.w500, color: Colors.white),
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
