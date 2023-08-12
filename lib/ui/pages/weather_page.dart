@@ -36,13 +36,19 @@ class _WeatherPageState extends State<WeatherPage> {
     await Geolocator.requestPermission();
     position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
     log(position!.latitude.toString());
+    log(position!.longitude.toString());
+
     if (position != null) {
       getWeather();
     }
   }
 
-  void getWeather() {
-    context.read<WeatherBloc>().add(GetWeatherEvent(lat: position!.latitude, lon: position!.longitude));
+  void getWeather() async {
+    final completer = Completer();
+    context
+        .read<WeatherBloc>()
+        .add(GetWeatherEvent(lat: position!.latitude, lon: position!.longitude, completer: completer));
+    await completer.future;
   }
 
   @override
@@ -62,11 +68,7 @@ class _WeatherPageState extends State<WeatherPage> {
               final weather = state.everythingWeather;
               return RefreshIndicator(
                 onRefresh: () async {
-                  final completer = Completer();
-                  context
-                      .read<WeatherBloc>()
-                      .add(GetWeatherEvent(lat: position!.latitude, lon: position!.longitude, completer: completer));
-                  await completer.future;
+                  geolocator();
                 },
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
