@@ -16,10 +16,11 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
   Future<AllWeatherModels> getWeather(double lat, double lon) async {
     try {
       final response = await Dio().get(
-        'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid={07d37d27561c56eb58cb87cb4c69278b}',
+        'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&lang=ru&appid=07d37d27561c56eb58cb87cb4c69278b&units=metric',
       );
       if (response.statusCode == 200) {
-        return response.data['articles'];
+        final weather = AllWeatherModels.fromJson(response.data);
+        return weather;
       } else {
         throw ServerException();
       }

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:weather_by_location/feature/data/models/weather_enum_model.dart';
 
 class AllWeatherEntity extends Equatable {
   final CoordEntity? coord;
@@ -93,8 +94,8 @@ class SysEntity {
 
 class WeatherEntity {
   int? id;
-  String? main;
+  WeatherEnum main;
   String? description;
   String? icon;
-  WeatherEntity({this.id, this.main, this.description, this.icon});
+  WeatherEntity({this.id, required this.main, this.description, this.icon});
 }

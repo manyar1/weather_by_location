@@ -1,0 +1,1 @@
+enum WeatherEnum {rain, snow, thunderstorm, drizzle, clouds}
