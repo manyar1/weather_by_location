@@ -2,7 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_by_location/core/platform/network_info.dart';
-import 'package:weather_by_location/feature/data/datasources/news_local_data_source.dart';
+import 'package:weather_by_location/feature/data/datasources/weather_local_data_source.dart';
 import 'package:weather_by_location/feature/data/datasources/weather_remote_data_source.dart';
 import 'package:weather_by_location/feature/data/repository/weather_repository_impl.dart';
 import 'package:weather_by_location/feature/domain/repositories/weather_repository.dart';
